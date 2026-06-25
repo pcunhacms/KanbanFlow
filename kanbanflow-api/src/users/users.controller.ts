@@ -35,6 +35,7 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
+
   @Get(':id')
   findOne(
     @Param('id') id: string,
@@ -42,14 +43,6 @@ export class UsersController {
     return this.usersService.findOne(
       Number(id),
     );
-  }
-
-
-  @Post()
-  create(
-    @Body() createUserDto: CreateUserDto,
-  ) {
-    return this.usersService.create(createUserDto);
   }
 
   @Patch(':id')
