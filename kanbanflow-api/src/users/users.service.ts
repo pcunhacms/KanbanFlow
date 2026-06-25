@@ -20,10 +20,8 @@ export class UsersService {
 
     async create(createUserDto: CreateUserDto) {
 
-        const hashedPassword = await bcrypt.hash(
-            createUserDto.password,
-            10
-        )
+         const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+
 
         const user = this.userRepository.create({
             ...createUserDto,
@@ -37,9 +35,17 @@ export class UsersService {
         // gera um INSERT no PostgreSQL
     }
 
+    
+
     async findAll() {
-        return await this.userRepository.find();
-        //gera algo como SELECT * FROM users;
+        return await this.userRepository.find({
+            select: {
+                id: true,
+                name: true,
+                email: true
+            }
+        });
+        //gera algo como SELECT id, name, email FROM users;
     }
 
     async findByEmail(email: string) {

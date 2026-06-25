@@ -5,11 +5,15 @@ import {
   Get,
   Param,
   Post,
-  Patch
+  Patch,
+  UseGuards
 } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth-guard';
+
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+
 
 //o controller so tem uma funcao: receber requisicoes HTTP.
 // nao deve saber como salvar um usuario, validar senha 
@@ -24,6 +28,8 @@ export class UsersController {
     private readonly usersService: UsersService,
   ) { }
 
+
+  @UseGuards(JwtAuthGuard)
   @Get()
   findAll() {
     return this.usersService.findAll();
